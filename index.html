@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accepted ASIN Sheet</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Our own styles -->
+    <style>
+/* ===========================================================================
+   COLOURS AND OTHER SETTINGS
+
+   Every colour on the site is named here once. Change a value in this block
+   and it changes everywhere it is used. The second block below is the dark
+   version, which kicks in automatically when the visitor's device is set to
+   dark mode.
+   =========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --ground: #f6f5f2;
+  --surface: #fffefc;
+  --surface-sunk: #efeeea;
+  --line: #dedcd5;
+  --line-soft: #e9e7e1;
+
+  --ink: #1d1f1c;
+  --ink-muted: #6d7069;
+  --ink-faint: #93968e;
+
+  --accent: #146b5e;
+  --accent-soft: #e2efec;
+
+  --good: #2f6d45;
+  --good-soft: #e6f1e9;
+  --warn: #8a5a16;
+  --warn-soft: #f6eddd;
+  --bad: #99392a;
+  --bad-soft: #f7e7e3;
+
+  --shadow: 0 1px 2px rgba(29, 31, 28, 0.05);
+  --radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --ground: #14160f;
+    --surface: #1c1f18;
+    --surface-sunk: #24271f;
+    --line: #343830;
+    --line-soft: #2b2f27;
+
+    --ink: #eceee6;
+    --ink-muted: #9ca194;
+    --ink-faint: #757a6d;
+
+    --accent: #5bbfa9;
+    --accent-soft: #1d312c;
+
+    --good: #7dc191;
+    --good-soft: #1b2d21;
+    --warn: #d4a05c;
+    --warn-soft: #2e2618;
+    --bad: #e0897a;
+    --bad-soft: #31201c;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ===========================================================================
+   BASICS
+   =========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Numbers line up in columns when every digit is the same width. */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.label-caps {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ===========================================================================
+   SIGN IN
+   =========================================================================== */
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+}
+
+.login-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.login-sub {
+  margin: 4px 0 22px;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.field span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.field input {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.login-error {
+  margin: 0 0 14px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--bad-soft);
+  color: var(--bad);
+  font-size: 13px;
+}
+
+/* ===========================================================================
+   BUTTONS
+   =========================================================================== */
+
+.button-primary {
+  width: 100%;
+  font: inherit;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: 6px;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.button-primary:hover {
+  filter: brightness(1.08);
+}
+
+.button-primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.button-quiet {
+  font: inherit;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.button-quiet:hover {
+  border-color: var(--accent);
+}
+
+.button-quiet:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.button-plain {
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink-muted);
+  background: none;
+  border: 0;
+  padding: 5px 4px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.button-plain:hover {
+  color: var(--ink);
+}
+
+/* ===========================================================================
+   HEADER
+   =========================================================================== */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.source {
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.who {
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/* ===========================================================================
+   PAGE
+   =========================================================================== */
+
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-inline: 16px;
+  padding-block: 20px 56px;
+}
+
+/* ---- summary tiles ---- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.stat {
+  background: var(--surface);
+  padding: 14px 16px;
+}
+
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.stat-value {
+  margin-top: 4px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.stat-hint {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/* ---- profitability mix ---- */
+
+.split {
+  margin-bottom: 24px;
+}
+
+.split-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.bar {
+  display: flex;
+  height: 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface-sunk);
+}
+
+.bar span {
+  display: block;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.legend i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-right: 6px;
+}
+
+/* ---- filters ---- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.filters input[type='search'],
+.filters select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+
+.filters input[type='search'] {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.count {
+  align-self: center;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/* ---- table ---- */
+
+.table-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-sunk);
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+th.r,
+td.r {
+  text-align: right;
+}
+
+td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr[data-i] {
+  cursor: pointer;
+}
+
+tbody tr[data-i]:hover td {
+  background: var(--surface-sunk);
+}
+
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pill.good {
+  background: var(--good-soft);
+  color: var(--good);
+}
+.pill.warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+.pill.bad {
+  background: var(--bad-soft);
+  color: var(--bad);
+}
+.pill.none {
+  background: var(--surface-sunk);
+  color: var(--ink-faint);
+}
+
+.msg {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--ink-muted);
+  white-space: normal;
+}
+
+.msg.err {
+  color: var(--bad);
+}
+
+/* ---- row detail drawer ---- */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(20, 22, 15, 0.45);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer {
+  width: min(420px, 100%);
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  padding: 20px 20px 28px;
+}
+
+.drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.drawer h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.drawer .sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.drawer dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(96px, 38%) 1fr;
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.drawer dt,
+.drawer dd {
+  margin: 0;
+  background: var(--surface);
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.drawer dt {
+  color: var(--ink-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-top: 10px;
+}
+
+.drawer dd {
+  overflow-wrap: anywhere;
+}
+
+.close {
+  font: inherit;
+  font-size: 13px;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink-muted);
+  padding: 4px 10px;
+  cursor: pointer;
+  flex: none;
+}
+
+footer {
+  margin-top: 28px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+    </style>
+  </head>
+
+  <body>
+    <!-- ===================================================================
+         THE APP
+
+         NOTE ON ACCESS: right now the database is set to answer anyone who
+         has the key in config.js. There is no sign-in step. If you later
+         want to restrict this to named people, see "Adding a login" in
+         README.md — the styles for a login screen are already in
+         styles.css, waiting.
+         =================================================================== -->
+    <div id="app">
+      <header>
+        <div class="header-inner">
+          <h1 id="site-name">Accepted ASIN Sheet</h1>
+          <span class="source" id="source-label"></span>
+          <span class="spacer"></span>
+          <button id="refresh" class="button-quiet" type="button">Refresh</button>
+        </div>
+      </header>
+
+      <main>
+        <!-- Summary tiles. Filled in by app.js -->
+        <section class="stats" id="stats" hidden></section>
+
+        <!-- Profitability mix bar -->
+        <section class="split" id="split" hidden>
+          <div class="split-head">
+            <span class="label-caps">Profitability mix</span>
+            <span class="label-caps num" id="split-total"></span>
+          </div>
+          <div class="bar" id="bar"></div>
+          <div class="legend" id="legend"></div>
+        </section>
+
+        <!-- Filters -->
+        <div class="filters">
+          <input
+            type="search"
+            id="q"
+            placeholder="Search ASIN, store, brand, UPC, distributor…"
+          />
+          <select id="status">
+            <option value="">All statuses</option>
+          </select>
+          <select id="store">
+            <option value="">All stores</option>
+          </select>
+          <span class="count" id="count"></span>
+        </div>
+
+        <!-- The table -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Approved</th>
+                <th>Store</th>
+                <th>ASIN</th>
+                <th>Brand</th>
+                <th class="r">Qty</th>
+                <th class="r">Unit cost</th>
+                <th class="r">Total</th>
+                <th class="r">ROI</th>
+                <th class="r">Profit / unit</th>
+                <th>Status</th>
+                <th>Distributor</th>
+              </tr>
+            </thead>
+            <tbody id="rows">
+              <tr>
+                <td colspan="11"><div class="msg">Loading rows…</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <footer id="foot"></footer>
+      </main>
+    </div>
+
+    <!-- ===================================================================
+         SCRIPTS
+         Order matters: the Supabase library and our settings must both be
+         loaded before app.js runs.
+         =================================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.10/dist/umd/supabase.min.js"></script>
+    <script>
+// ---------------------------------------------------------------------------
+// SETTINGS
+//
+// This is the only file you need to touch to point the site at a different
+// database or table. Everything else reads from here.
+//
+// The key below is the "publishable" key. It is safe to have in a public file:
+// on its own it grants nothing. What a visitor is allowed to read is decided by
+// the rules on the database (Supabase calls these Row Level Security policies).
+// Right now those rules say: you must be signed in.
+// ---------------------------------------------------------------------------
+
+window.CONFIG = {
+  // Your Supabase project. Find these under Project Settings -> API.
+  supabaseUrl: 'https://yhpuknpadhysorhgijos.supabase.co',
+  supabaseKey:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlocHVrbnBhZGh5c29yaGdpam9zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwOTY0MDAsImV4cCI6MjEwNTY3MjQwMH0.JKJpBFDrWpIXTuLzrr9WUTgk0rzkUtNIbN4ag9_2_H4',
+
+  // Which table to show.
+  table: 'accepted_asins_offer_sheet',
+
+  // How many rows to pull in total, and how many per request.
+  // Supabase caps a single request at 1000 rows, so larger totals are
+  // fetched in several passes.
+  maxRows: 5000,
+  pageSize: 1000,
+
+  // How many rows to draw on screen at once. Drawing tens of thousands of
+  // table rows will freeze the browser, so we cap it and tell the user.
+  maxVisibleRows: 500,
+
+  // Title shown in the header.
+  siteName: 'Accepted ASIN Sheet',
+};
+
+    </script>
+    <script>
+// ===========================================================================
+// THE BEHAVIOUR OF THE SITE
+//
+// Roughly in order, this file:
+//   1. connects to Supabase
+//   2. shows the sign-in form, or the app if already signed in
+//   3. fetches rows
+//   4. works out the summary numbers
+//   5. draws the table, and redraws it whenever a filter changes
+//
+// Nothing here talks to the database except through `db`, created on the
+// next few lines.
+// ===========================================================================
+
+const CONFIG = window.CONFIG;
+
+const db = window.supabase.createClient(
+  CONFIG.supabaseUrl,
+  CONFIG.supabaseKey,
+);
+
+// Every column in the table, in the order we want them in the detail panel.
+// [column name in the database, label shown to a person]
+const COLUMNS = [
+  ['id', 'ID'],
+  ['store_code', 'Store code'],
+  ['tracking_code', 'Tracking code'],
+  ['asin', 'ASIN'],
+  ['asin_eligible', 'ASIN eligible'],
+  ['asin_desired', 'ASIN desired'],
+  ['upc', 'UPC'],
+  ['brand', 'Brand'],
+  ['distributor', 'Distributor'],
+  ['qty', 'Qty'],
+  ['unit_cost', 'Unit cost'],
+  ['total_price', 'Total price'],
+  ['bundle_size', 'Bundle size'],
+  ['ninety_day_avg', '90-day avg'],
+  ['roi_percent', 'ROI %'],
+  ['profit_per_unit', 'Profit / unit'],
+  ['thirty_day_profit', '30-day profit'],
+  ['status', 'Status'],
+  ['notes', 'Notes'],
+  ['sheet_name', 'Sheet'],
+  ['approved_at', 'Approved at'],
+];
+
+// Which colour each status gets.
+const STATUS_TONE = {
+  Profitable: 'good',
+  'Low Profit': 'warn',
+  'Not Profitable': 'bad',
+  'Not Available': 'none',
+};
+
+const STATUS_COLOR = {
+  Profitable: 'var(--good)',
+  'Low Profit': 'var(--warn)',
+  'Not Profitable': 'var(--bad)',
+  'Not Available': 'var(--ink-faint)',
+  Unlabelled: 'var(--ink-faint)',
+};
+
+// Every row we've fetched. Filtering and searching happen against this array
+// in the browser, which is why they feel instant.
+let allRows = [];
+
+// ---------------------------------------------------------------------------
+// Small helpers
+// ---------------------------------------------------------------------------
+
+const el = (id) => document.getElementById(id);
+
+// Turn anything a person typed into text that can't break the page.
+const esc = (value) =>
+  String(value).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
+
+const isBlank = (v) => v === null || v === undefined || v === '';
+
+const money = (v) =>
+  isBlank(v)
+    ? '—'
+    : '$' +
+      Number(v).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
+const percent = (v) =>
+  isBlank(v)
+    ? '—'
+    : Number(v).toLocaleString(undefined, { maximumFractionDigits: 1 }) + '%';
+
+const shortDate = (v) =>
+  !v
+    ? '—'
+    : new Date(v).toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+
+// ---------------------------------------------------------------------------
+// 1. STARTING UP
+//
+// There is no sign-in step. The database is currently set to answer anyone
+// holding the key in config.js, so the page goes straight to fetching rows.
+// ---------------------------------------------------------------------------
+
+function start() {
+  el('site-name').textContent = CONFIG.siteName;
+  el('source-label').textContent = CONFIG.table;
+  loadRows();
+}
+
+// ---------------------------------------------------------------------------
+// 2. FETCHING THE ROWS
+//
+// Supabase returns at most 1000 rows per request, so we ask repeatedly,
+// each time for the next slice, until we have what we want or run out.
+// ---------------------------------------------------------------------------
+
+async function loadRows() {
+  const button = el('refresh');
+  button.disabled = true;
+  button.textContent = 'Loading…';
+
+  try {
+    const collected = [];
+
+    for (let from = 0; from < CONFIG.maxRows; from += CONFIG.pageSize) {
+      const to = from + CONFIG.pageSize - 1;
+
+      const { data, error } = await db
+        .from(CONFIG.table)
+        .select('*')
+        .order('approved_at', { ascending: false })
+        .order('id', { ascending: false })
+        .range(from, to);
+
+      if (error) throw error;
+
+      collected.push(...data);
+      if (data.length < CONFIG.pageSize) break;
+    }
+
+    allRows = collected;
+
+    fillFilterMenus();
+    drawSummary();
+    drawTable();
+
+    el('foot').textContent =
+      `Loaded ${allRows.length.toLocaleString()} rows at ` +
+      `${new Date().toLocaleTimeString()}. Click any row to see all ` +
+      `${COLUMNS.length} fields.`;
+  } catch (error) {
+    el('rows').innerHTML = `<tr><td colspan="11">
+      <div class="msg err">Could not load rows.<br>${esc(error.message)}</div>
+    </td></tr>`;
+    el('stats').hidden = true;
+    el('split').hidden = true;
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Refresh';
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 3. FILTER MENUS
+// Built from whatever values actually appear in the data.
+// ---------------------------------------------------------------------------
+
+function distinctValues(column) {
+  return [...new Set(allRows.map((r) => r[column]).filter(Boolean))].sort();
+}
+
+function fillFilterMenus() {
+  const statusMenu = el('status');
+  const storeMenu = el('store');
+
+  statusMenu.length = 1; // keep "All statuses"
+  storeMenu.length = 1; // keep "All stores"
+
+  for (const value of distinctValues('status')) {
+    statusMenu.add(new Option(value, value));
+  }
+  for (const value of distinctValues('store_code')) {
+    storeMenu.add(new Option(value, value));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 4. SUMMARY NUMBERS
+// ---------------------------------------------------------------------------
+
+function drawSummary() {
+  const stores = new Set(allRows.map((r) => r.store_code)).size;
+  const brands = new Set(allRows.map((r) => r.brand).filter(Boolean)).size;
+  const units = allRows.reduce((sum, r) => sum + (Number(r.qty) || 0), 0);
+
+  const dates = allRows
+    .map((r) => r.approved_at)
+    .filter(Boolean)
+    .sort();
+
+  const tiles = [
+    ['Rows', allRows.length.toLocaleString(), 'loaded'],
+    ['Stores', stores.toLocaleString(), 'distinct store codes'],
+    ['Brands', brands.toLocaleString(), 'distinct brands'],
+    ['Units', units.toLocaleString(), 'quantity accepted'],
+    [
+      'Newest',
+      dates.length ? shortDate(dates[dates.length - 1]) : '—',
+      dates.length ? `back to ${shortDate(dates[0])}` : '',
+    ],
+  ];
+
+  el('stats').innerHTML = tiles
+    .map(
+      ([label, value, hint]) => `
+      <div class="stat">
+        <div class="stat-label">${esc(label)}</div>
+        <div class="stat-value num">${esc(value)}</div>
+        <div class="stat-hint">${esc(hint)}</div>
+      </div>`,
+    )
+    .join('');
+  el('stats').hidden = false;
+
+  // How the rows split across statuses.
+  const counts = new Map();
+  for (const row of allRows) {
+    const key = row.status || 'Unlabelled';
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+
+  const ordered = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  const total = allRows.length || 1;
+
+  el('bar').innerHTML = ordered
+    .map(([key, n]) => {
+      const width = ((n / total) * 100).toFixed(2);
+      const color = STATUS_COLOR[key] || 'var(--ink-faint)';
+      return `<span style="width:${width}%;background:${color}" title="${esc(
+        key,
+      )}: ${n}"></span>`;
+    })
+    .join('');
+
+  el('legend').innerHTML = ordered
+    .map(([key, n]) => {
+      const color = STATUS_COLOR[key] || 'var(--ink-faint)';
+      const share = ((n / total) * 100).toFixed(1);
+      return `<span><i style="background:${color}"></i>${esc(key)}
+        <span class="num">${n.toLocaleString()}</span>
+        <span style="color:var(--ink-faint)">(${share}%)</span></span>`;
+    })
+    .join('');
+
+  el('split-total').textContent = `${allRows.length.toLocaleString()} rows`;
+  el('split').hidden = false;
+}
+
+// ---------------------------------------------------------------------------
+// 5. THE TABLE
+// ---------------------------------------------------------------------------
+
+function matchingRows() {
+  const query = el('q').value.trim().toLowerCase();
+  const status = el('status').value;
+  const store = el('store').value;
+
+  return allRows.filter((row) => {
+    if (status && row.status !== status) return false;
+    if (store && row.store_code !== store) return false;
+    if (!query) return true;
+
+    return [
+      row.asin,
+      row.store_code,
+      row.brand,
+      row.upc,
+      row.distributor,
+      row.sheet_name,
+    ]
+      .filter(Boolean)
+      .some((value) => String(value).toLowerCase().includes(query));
+  });
+}
+
+function drawTable() {
+  const matches = matchingRows();
+
+  el('count').textContent =
+    `${matches.length.toLocaleString()} of ${allRows.length.toLocaleString()} rows`;
+
+  if (matches.length === 0) {
+    el('rows').innerHTML =
+      '<tr><td colspan="11"><div class="msg">No rows match those filters.</div></td></tr>';
+    return;
+  }
+
+  const visible = matches.slice(0, CONFIG.maxVisibleRows);
+
+  const rowsHtml = visible
+    .map((row, index) => {
+      const tone = STATUS_TONE[row.status] || 'none';
+      return `<tr data-i="${index}">
+        <td class="num">${esc(shortDate(row.approved_at))}</td>
+        <td class="mono">${esc(row.store_code ?? '—')}</td>
+        <td class="mono">${esc(row.asin ?? '—')}</td>
+        <td>${esc(row.brand ?? '—')}</td>
+        <td class="r num">${esc(row.qty ?? '—')}</td>
+        <td class="r num">${esc(money(row.unit_cost))}</td>
+        <td class="r num">${esc(money(row.total_price))}</td>
+        <td class="r num">${esc(percent(row.roi_percent))}</td>
+        <td class="r num">${esc(money(row.profit_per_unit))}</td>
+        <td><span class="pill ${tone}">${esc(row.status || '—')}</span></td>
+        <td>${esc(row.distributor ?? '—')}</td>
+      </tr>`;
+    })
+    .join('');
+
+  const moreNotice =
+    matches.length > visible.length
+      ? `<tr><td colspan="11"><div class="msg">
+           Showing the first ${visible.length.toLocaleString()} of
+           ${matches.length.toLocaleString()} matches.
+           Narrow the filters to see the rest.
+         </div></td></tr>`
+      : '';
+
+  el('rows').innerHTML = rowsHtml + moreNotice;
+
+  el('rows')
+    .querySelectorAll('tr[data-i]')
+    .forEach((tr) => {
+      tr.addEventListener('click', () =>
+        openDetail(visible[Number(tr.dataset.i)]),
+      );
+    });
+}
+
+// ---------------------------------------------------------------------------
+// 6. ROW DETAIL
+// ---------------------------------------------------------------------------
+
+function openDetail(row) {
+  const monoFields = ['id', 'asin', 'upc', 'store_code', 'tracking_code'];
+
+  const pairs = COLUMNS.map(([key, label]) => {
+    let value = row[key];
+
+    if (isBlank(value)) value = '—';
+    else if (key === 'approved_at') value = new Date(value).toLocaleString();
+
+    const cls = monoFields.includes(key) ? 'mono' : '';
+    return `<dt>${esc(label)}</dt><dd class="${cls}">${esc(value)}</dd>`;
+  }).join('');
+
+  const scrim = document.createElement('div');
+  scrim.className = 'scrim';
+  scrim.innerHTML = `
+    <div class="drawer" role="dialog" aria-label="Row detail">
+      <div class="drawer-head">
+        <div>
+          <h2 class="mono">${esc(row.asin ?? '—')}</h2>
+          <div class="sub">${esc(row.brand || 'No brand')} · store
+            ${esc(row.store_code ?? '—')}</div>
+        </div>
+        <button class="close" type="button">Close</button>
+      </div>
+      <dl>${pairs}</dl>
+    </div>`;
+
+  const close = () => {
+    scrim.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+
+  const onKey = (e) => {
+    if (e.key === 'Escape') close();
+  };
+
+  scrim.addEventListener('click', (e) => {
+    if (e.target === scrim) close();
+  });
+  scrim.querySelector('.close').addEventListener('click', close);
+  document.addEventListener('keydown', onKey);
+
+  document.body.appendChild(scrim);
+}
+
+// ---------------------------------------------------------------------------
+// Wire up the controls, then go.
+// ---------------------------------------------------------------------------
+
+el('q').addEventListener('input', drawTable);
+el('status').addEventListener('change', drawTable);
+el('store').addEventListener('change', drawTable);
+el('refresh').addEventListener('click', loadRows);
+
+start();
+
+    </script>
+  </body>
+</html>
